@@ -6,26 +6,26 @@ import firebaseConfig from './components/firebase';
 import { getDatabase, ref, child, get } from "firebase/database";
 import { initializeApp } from "firebase/app";
 import rezepte from "./component/rezepte"
+import Liste from './component/Liste'
 
 export default function App() {
   const [selected, setSelected] = useState("");
-  const zutaten = []
-  // Initialize Firebase
-  const dbRef = ref(getDatabase());
+  let [listerezepte, setlisterezepte] = useState([])
 
 
   const onPressLearnMore = () => {
-    console.log(999, rezepte)
+    console.log(999, listerezepte)
 
   }
 
 
   return (
     <View style={styles.container}>
-      <SelectList setSelected={setSelected} data={rezepte} onSelect={() => alert(selected)} />
+      <SelectList setSelected={setSelected} data={rezepte} onSelect={() => setlisterezepte([...listerezepte, selected])} />
+      <Liste rezepte={listerezepte} />
       <Button
         onPress={onPressLearnMore}
-        title="Testbutton"
+        title="Click Me"
         color="#841584"
         accessibilityLabel="Learn more about this purple button"
       />
