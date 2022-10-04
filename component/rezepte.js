@@ -1,24 +1,21 @@
 import firebaseConfig from '../components/firebase';
 import { getDatabase, ref, child, get } from "firebase/database";
 import { async } from '@firebase/util';
+import zutaten from "./zutaten"
+
+
+
+console.log(111, zutaten)
 
 const dbRef = ref(getDatabase());
-let rezepte = []
-const getData = async (array) => {
-    for (let i = 1; i < 4; i++) {
-        get(child(dbRef, `Zutaten/${i}`)).then((snapshot) => {
-            if (snapshot.exists()) {
-                array.push({key:snapshot.val(),value:snapshot.val()})
 
-            } else {
-                console.log("No data available");
-            }
-        })
+get(child(dbRef, `Rezepte`)).then((snapshot) => {
+    if (snapshot.exists()) {
+        console.log(222, snapshot)
+        snapshot.forEach((rec) => { rec.forEach(recs => console.log(111111, recs)) })
+
+
+    } else {
+        console.log("No data available");
     }
-}
-
-getData(rezepte)
-
-
-
-export default rezepte;
+})
